@@ -4,7 +4,7 @@ from __future__ import print_function
 import MCP3008
 import odrive
 from odrive.enums import *   # à checker
-import time
+from time import sleep
 from math import pi, fabs
 
 
@@ -27,7 +27,6 @@ class Move:
         self.SenOn = list()
 
         # boucle accel
-
         self.seuil = 0
         self.buffer = 0
 
@@ -124,10 +123,16 @@ class Move:
         # Fonction qui fait tourner le robot sur lui même
         # d'un angle donné en degré
 
+        # Variables Locales :
+        axis0 = self.odrv0.axis0
+        axis1 = self.odrv0.axis1
+
         # Def. de l'angle parcouru par les roues avant nouveau deplacement
-        angleInit0 = (- 360.0 * self.WheelPerimeter * self.odrv0.axis0.encoder.pos_estimate) \
+        angleInit0 = \
+            (- 360.0 * self.WheelPerimeter * axis0.encoder.pos_estimate) \
             / (pi * self.AxlTrack * self.nbCounts)
-        angleInit1 = (- 360.0 * self.WheelPerimeter * self.odrv0.axis1.encoder.pos_estimate) \
+        angleInit1 = \
+            (- 360.0 * self.WheelPerimeter * axis1.encoder.pos_estimate) \
             / (pi * self.AxlTrack * self.nbCounts)
 
         print("Lancement d'une Rotation de %.0f°" % angle)
@@ -136,10 +141,10 @@ class Move:
         RunAngle = (float(angle) * pi * self.AxlTrack) / 360.0
 
         # Controle de la Position Angulaire en Absolu :
-        target0 = self.odrv0.axis0.encoder.pos_estimate + \
-            (self.nbCounts * RunAngle) / self.WheelPerimeter
-        target1 = self.odrv0.axis1.encoder.pos_estimate + \
-            (self.nbCounts * RunAngle) / self.WheelPerimeter
+        target0 = self.odrv0.axis0.encoder.pos_estimate \
+            + (self.nbCounts * RunAngle) / self.WheelPerimeter
+        target1 = self.odrv0.axis1.encoder.pos_estimate \
+            + (self.nbCounts * RunAngle) / self.WheelPerimeter
 
         # Assignation de values avec valeur du capteur IR
         # values = MCP3008.readadc(1)
