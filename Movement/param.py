@@ -7,6 +7,7 @@ from odrive.enums import *  # a checker
 import time
 from math import *
 
+
 class Param:
     def __init__(self):
         print("finding an odrive...")
@@ -34,9 +35,8 @@ class Param:
         self.odrv0.axis1.trap_traj.config.decel_limit = 7000
 
         # test avec  calib_saved.py
-        #self.odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-        #self.odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-
+        # self.odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+        # self.odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
 
     def raz(self):
         # Fonction de remise à zero des moteurs pour initialisation si calib déja faite
@@ -57,12 +57,11 @@ class Param:
 
             self.odrv0.axis0.trap_traj.config.decel_limit = 750
             self.odrv0.axis1.trap_traj.config.decel_limit = 750"""
-            #Remise en position 0 des moteurs pour initialisation
+            # Remise en position 0 des moteurs pour initialisation
             self.odrv0.axis0.controller.move_to_pos(0)
             self.odrv0.axis1.controller.move_to_pos(0)
             print("Poser le robot au sol")
             time.sleep(10)
-
 
     def calib(self):
         # Fonction de calibration sans condition
@@ -78,7 +77,6 @@ class Param:
         # Met les moteurs en boucle fermée
         self.odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         self.odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-
 
     def unlock_wheels(self):
         # AXIS_STATE_IDLE , libère le moteur : boucle ouverte
