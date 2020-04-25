@@ -187,7 +187,7 @@ class Move:
             elif self.OBS is True and self.ActDone is False:
                 # compteur_evitement =+ 1
                 self.stop()
-                time.sleep(0.5)
+                sleep(0.5)
                 self.OBS = False
                 print("Rotation : Obstacle")
             else:
@@ -255,7 +255,7 @@ class Move:
 
             elif self.OBS is True and self.ActDone is False:
                 self.stop()
-                time.sleep(0.5)
+                sleep(0.5)
                 self.OBS = False
                 print("Translation : Obstacle")
             else:
