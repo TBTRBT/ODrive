@@ -6,7 +6,7 @@ import odrive
 # import odrive.enums  # à checker
 from time import sleep
 from math import pi, fabs
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 class Move:
